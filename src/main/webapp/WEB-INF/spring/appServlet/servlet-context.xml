@@ -13,7 +13,7 @@
 ">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -25,9 +25,9 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+
 	<context:component-scan base-package="com.groupb.cuiz" />
-	
+
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/list"/>
@@ -36,7 +36,7 @@
 			<mapping path="/quiz/update"/>
 			<beans:ref bean= "adminInterceptor"/>
 		</interceptor>
-		
+
 		<interceptor>
 			<mapping path="/mypage/profile"/>
 			<mapping path="/member/update"/>
@@ -45,22 +45,22 @@
 			<mapping path="/purchase/*"/>
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
-		
-		
-		
+
+
+
 	</interceptors>
-	
+
 	<task:scheduled-tasks scheduler="scheduler">
         <task:scheduled ref="testSchedule" method="testPrint" cron="*/2 * * * * ?"/>
     	<task:scheduled ref="userDelete" method="setDelete" cron ="0 */30 * * * ?"/>
     	<task:scheduled ref="rankingList" method="daily_Ranking" cron="0 0 13 * * ?"/>
     </task:scheduled-tasks>
-	
+
 	<task:scheduler id="scheduler" pool-size="10"/>
 	<beans:bean id="testSchedule" class="com.groupb.cuiz.web.schedule.TestSchedule"/>
 	<beans:bean id="rankingList" class="com.groupb.cuiz.web.schedule.DailyRanking"/>
 	<beans:bean id="userDelete" class="com.groupb.cuiz.web.schedule.UserDelete">
-		
+
 	</beans:bean>
 
 	<!-- 등록된 빈 중 @Transactional이 붙은 클래스/인터페이스/메소드를 찾아 트랜잭션 어드바이스를 적용 -->

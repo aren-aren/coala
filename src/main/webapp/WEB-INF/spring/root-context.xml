@@ -3,21 +3,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:task="http://www.springframework.org/schema/task"
-	
+
 	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<context:property-placeholder order="1" ignore-unresolvable="true" location="classpath:email/config/javamail-ignore.properties"/>
 	<context:property-placeholder order="2" ignore-unresolvable="true" location="classpath:key/config/key-ignore.properties"/>
-	
-	
+
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 		<property name="defaultEncoding" value="UTF-8"></property>
 		<property name="maxUploadSize" value="10485760"></property>
 		<property name="maxUploadSizePerFile" value="5242880"></property>
 	</bean>
-	
+
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
@@ -33,15 +33,15 @@
             </props>
         </property>
     </bean>
-	
+
 	<bean id="keyGet" class="com.groupb.cuiz.web.member.SecretKeyController" primary="true">
 		<property name="key123" value="${kakaoKey.password}"></property>
 		<property name="kakaoPaySecretKey" value="${kkakaoPaySecretKey}"></property>
 	</bean>
-	
-
-	
 
 
-	
+
+
+
+
 </beans>

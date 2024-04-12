@@ -24,6 +24,8 @@ public class QuizService {
     private QuizDAO quizDAO;
     @Autowired
     private MemberDAO memberDAO;
+    @Autowired
+    private QuizSourceExecutor quizSourceExecutor;
 
     /**
      * DB의 QUIZ 테이블에 Quiz 정보를 넣고, 예제 input과 output, 실제 input과 output TESTCASE 테이블에 넣는다
@@ -165,7 +167,7 @@ public class QuizService {
 
         //컴파일
         try {
-            QuizSourceExecutor.compileJava(realPath + "/" + filename + extension);
+            quizSourceExecutor.compileJava(realPath + "/" + filename + extension);
         } catch (RuntimeException e){
             System.out.println("e.getMessage() = " + e.getMessage().replace(realPath, ""));
             return List.of("컴파일 에러 : " + e.getMessage().replace(realPath, ""));
@@ -174,7 +176,7 @@ public class QuizService {
         List<String> results = new ArrayList<>();
         for (int i = 0; i < inputs.size(); i++) {
             try {
-                results.add(QuizSourceExecutor.runCode(realPath, filename, inputs.get(i)));
+                results.add(quizSourceExecutor.runCode(realPath, filename, inputs.get(i)));
             } catch (RuntimeException e) {
                 System.out.println("e.getMessage() = " + e.getMessage().split("\n")[1]);
                 results.add(e.getMessage().split("\n")[1]);
